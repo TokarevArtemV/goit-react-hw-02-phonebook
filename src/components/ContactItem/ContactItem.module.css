@@ -3,6 +3,7 @@
   height: 32px;
   width: 100px;
   border-radius: 16px;
+  cursor: pointer;
 }
 .text {
   display: flex;
