@@ -32,8 +32,11 @@ export class App extends Component {
       NotificationManager.info(`${name} is alredy in contacts`);
       return;
     }
-    this.setState({
-      contacts: [...this.state.contacts, { id, name, number }],
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        contacts: [...this.state.contacts, { id, name, number }],
+      };
     });
   };
 
@@ -41,8 +44,11 @@ export class App extends Component {
     const newArrContacts = this.state.contacts.filter(
       contact => contact.id !== idContact
     );
-    this.setState({
-      contacts: newArrContacts,
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        contacts: newArrContacts,
+      };
     });
   };
 
@@ -51,17 +57,7 @@ export class App extends Component {
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 20,
-          color: '#010101',
-        }}
-      >
+      <div className="container">
         <NotificationContainer />
         <h1>Phonebook</h1>
         <ContactForm onSubmitForm={this.handleSubmitForm} />

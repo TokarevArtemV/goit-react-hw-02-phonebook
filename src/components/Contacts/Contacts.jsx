@@ -1,10 +1,15 @@
 import { ContactItem } from 'components/ContactItem/ContactItem';
+import css from 'components/Contacts/Contacts.module.css';
 
 export const Contacts = ({ contacts, onClickDelBtn }) => (
-  <ul>
+  <ul className={css.list}>
     {contacts &&
       contacts.map(contact => (
-        <ContactItem contact={contact} onClickDelBtn={onClickDelBtn} />
+        <ContactItem
+          key={contact.id}
+          contact={contact}
+          onClickDelBtn={onClickDelBtn}
+        />
       ))}
   </ul>
 );
