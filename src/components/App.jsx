@@ -32,22 +32,20 @@ export class App extends Component {
       NotificationManager.info(`${name} is alredy in contacts`);
       return;
     }
-    this.setState(prevState => {
+    this.setState(() => {
       return {
-        ...prevState,
         contacts: [...this.state.contacts, { id, name, number }],
       };
     });
   };
 
   handleDeleteContact = idContact => {
-    const newArrContacts = this.state.contacts.filter(
-      contact => contact.id !== idContact
-    );
     this.setState(prevState => {
       return {
         ...prevState,
-        contacts: newArrContacts,
+        contacts: prevState.contacts.filter(
+          contact => contact.id !== idContact
+        ),
       };
     });
   };
@@ -66,10 +64,12 @@ export class App extends Component {
           onInputFilter={this.handleInputFilter}
           filter={this.state.filter}
         />
-        <Contacts
-          contacts={filteredContacts}
-          onClickDelBtn={this.handleDeleteContact}
-        />
+        {filteredContacts.length > 0 && (
+          <Contacts
+            contacts={filteredContacts}
+            onClickDelBtn={this.handleDeleteContact}
+          />
+        )}
       </div>
     );
   }

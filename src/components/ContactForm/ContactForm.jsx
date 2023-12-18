@@ -8,21 +8,15 @@ export class ContactForm extends Component {
     number: '',
   };
 
-  handleInputChange = evt => {
-    this.setState({ name: evt.currentTarget.value });
-  };
-
-  handleNumberChange = evt => {
-    this.setState({ number: evt.currentTarget.value });
+  handleInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   };
 
   onSubmitForm = evt => {
     evt.preventDefault();
-    const id = nanoid();
     this.props.onSubmitForm({
-      id,
-      name: this.state.name,
-      number: this.state.number,
+      id: nanoid(),
+      ...this.state,
     });
 
     evt.target.reset();
@@ -53,7 +47,7 @@ export class ContactForm extends Component {
               pattern="\d{3}[\-]\d{2}[\-]\d{2}"
               title="Number may contain only numbers and dushes. For example 123-45-67"
               required
-              onChange={this.handleNumberChange}
+              onChange={this.handleInputChange}
             />
           </label>
           <button className={css.button} type="submit">
